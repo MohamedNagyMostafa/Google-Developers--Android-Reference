@@ -14,5 +14,5 @@
 		<li>Within this folder. Add new folder holds the name of the implemented code usage, 
     such as(service-broadcast-content providor...)</li>
 		<li>Within this folder, you can add your files code</li>
-		<li>Finally, Make a pull request</li>
+		<li>Finally, Commit your folder[first folder you created which holds your name] as a new branch and then Make a pull request</li>
 	</ul>
