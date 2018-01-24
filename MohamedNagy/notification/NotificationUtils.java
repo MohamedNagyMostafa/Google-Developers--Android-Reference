@@ -13,6 +13,7 @@ import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 
+import com.adja.apps.mohamednagy.myapplication.Intent.service.MyIntentService;
 import com.adja.apps.mohamednagy.myapplication.MainActivity;
 import com.adja.apps.mohamednagy.myapplication.R;
 
@@ -52,6 +53,27 @@ public class NotificationUtils {
         );
     }
 
+    private static final String ACTION_NAME = "action name";
+    private static final int ACTION_PENDING_ID = 1;
+    /// set actions on notification.
+    private static NotificationCompat.Action myAction(Context context){
+        // as MyIntentService is the action service class.
+        Intent myActionIntent = new Intent(context, MyIntentService.class);
+        myActionIntent.setAction(ACTION_NAME);
+        PendingIntent pendingIntent = PendingIntent.getService(
+                context,
+                ACTION_PENDING_ID,
+                myActionIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT
+        );
+
+        return new NotificationCompat.Action(
+                R.drawable.ic_launcher_background,
+                "No",
+                pendingIntent
+        );
+    }
+
     private static Bitmap notificationIconDecode(Context context){
         Resources resources = context.getResources();
 
@@ -87,8 +109,8 @@ public class NotificationUtils {
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(NOTIFICATION_CHANNEL_NAME))
                 .setDefaults(Notification.DEFAULT_VIBRATE)
                 .setContentIntent(contentIntent(context))
-                .setAutoCancel(true); // remove notification when user clicks on it.
-
+                .setAutoCancel(true) // remove notification when user clicks on it.
+                .addAction(myAction(context));
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN &&
                 Build.VERSION.SDK_INT < Build.VERSION_CODES.O){
             notificationBuilder.setPriority(NotificationCompat.PRIORITY_HIGH);
