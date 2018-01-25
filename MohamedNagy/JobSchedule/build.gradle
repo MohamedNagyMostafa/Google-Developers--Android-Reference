@@ -1,0 +1,3 @@
+
+    compile 'com.firebase:firebase-jobdispatcher:0.5.2'
+
